@@ -13,6 +13,7 @@ from lighteval.tasks.lighteval_task import LightevalTaskConfig
 from lighteval.tasks.requests import Doc
 
 from prolog.PrologEvaluator import is_valid_prolog, eva
+from prolog.PrologParser import extract_ground_truth, extract_trains, extract_predicted
 
 
 def prolog_data_preparator(predictions: list[str], formatted_doc: Doc, **kwargs):
@@ -24,44 +25,75 @@ def prolog_data_preparator(predictions: list[str], formatted_doc: Doc, **kwargs)
     original_prompt = formatted_doc.instruction
     original_data = formatted_doc.query.replace(original_prompt, "", 1).strip()
 
-    return {
-        "prediction": predictions[0],
+    prolog_specific_data = {
+        "predictions": predictions,
         "ground_truth": ground_truth,
         "prompt": original_prompt,
         "data": original_data,
         "quick_validity_check": is_valid_prolog(predictions[0]),
     }
 
+    return {
+        "golds": [ground_truth],
+        "predictions": predictions,
+        "prolog_data": prolog_specific_data,
+    }
+
 
 def custom_corpus_level_accuracy_calculator(all_sample_data: list[dict]):
-    all_results = []
     tasks_for_pool = []
 
-    for sample_data in all_sample_data:
-        if not sample_data["quick_validity_check"]:
-            all_results.append((0, 0, 0, 0, 0, "Skipped due to quick validity check"))
-            continue
+    _is_valid_prolog = []
+    for sample_data_wrapper in all_sample_data:
+        sample_data = sample_data_wrapper["prolog_data"]
 
-        ground_truth = sample_data["ground_truth"]
-        trains_facts = sample_data["data"]
-        predicted_rule = sample_data["prediction"]
-        tasks_for_pool.append((trains_facts, ground_truth, predicted_rule))
+        trains_facts = extract_trains(sample_data["data"])
+        ground_truth = extract_ground_truth(sample_data["ground_truth"])
+        predicted_rules = extract_predicted(sample_data["predictions"])
+
+        _is_valid_prolog.append(sample_data["quick_validity_check"])
+
+        for predicted_rule in predicted_rules:
+            tasks_for_pool.append((trains_facts, ground_truth, predicted_rule))
 
     num_cores = multiprocessing.cpu_count()
 
-    if not tasks_for_pool:
-        raise Exception(
-            "No valid samples to process with eva. \n"
-            f"{all_sample_data[0].get('prediction','NaN')}"
-        )
-    else:
-        with multiprocessing.Pool(processes=num_cores) as pool:
-            raw_eva_results = pool.starmap(eva, tasks_for_pool)
+    with multiprocessing.Pool(processes=num_cores) as pool:
+        raw_eva_results = pool.starmap(eva, tasks_for_pool)
+    precisions = []
+    recalss = []
+    f1s = []
+    accuracies = []
+    entropy_scores = []
 
-        valid_accuracies = [res["acc"] for res in raw_eva_results if "acc" in res]
-        final_accuracy_score = np.mean(valid_accuracies) if valid_accuracies else 0.0
+    for res in raw_eva_results:
+        if "error" in res:
+            print(res["error"])
+        if "precision" in res:
+            precisions.append(res["precision"])
+        if "recall" in res:
+            recalss.append(res["recall"])
+        if "f1" in res:
+            f1s.append(res["f1"])
+        if "acc" in res:
+            accuracies.append(res["acc"])
+        if "entropy_score" in res:
+            entropy_scores.append(res["entropy_score"])
 
-    return final_accuracy_score
+    mean_precision = np.mean(precisions) if precisions else 0
+    mean_recall = np.mean(recalss) if recalss else 0
+    mean_f1 = np.mean(f1s) if f1s else 0
+    mean_accuracy = np.mean(accuracies) if accuracies else 0
+    mean_entropy_score = np.mean(entropy_scores) if entropy_scores else 0
+
+    return {
+        "complex_accuracy": mean_accuracy,
+        "precision": mean_precision,
+        "recall": mean_recall,
+        "f1": mean_f1,
+        "entropy_score": mean_entropy_score,
+        "incorect": _is_valid_prolog.count(False),
+    }
 
 
 prolog_metric = CorpusLevelMetric(
@@ -95,11 +127,11 @@ CUSTOM_TASK = LightevalTaskConfig(
     hf_filter=lambda line: int(line["difficulty"][11:]) == 1
     and len(line["prompt"]) < 47000,
     hf_avail_splits=["train", "test", "test_small", "eval"],
-    evaluation_splits=["eval"],
+    evaluation_splits=["test_small"],
     generation_size=1,
     few_shots_split=None,
     few_shots_select=None,
-    metric=[Metrics.prolog_metric, Metrics.rouge_t5, Metrics.bert_score],
+    metric=[Metrics.prolog_metric],
     trust_dataset=True,
 )
 
