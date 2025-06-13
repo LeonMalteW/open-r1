@@ -1,0 +1,348 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 2635217.344033424,
+    "end_time": 2637589.060420954,
+    "total_evaluation_time_secondes": "2371.716387530323",
+    "model_name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": null,
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": 32768,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.6,
+      "top_k": null,
+      "min_p": null,
+      "top_p": 0.95,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "lighteval|aime24|0": {
+      "math_pass@1:1_samples": 0.3,
+      "math_pass@1:1_samples_stderr": 0.0850962943396763,
+      "math_pass@1:4_samples": 0.325,
+      "math_pass@1:4_samples_stderr": 0.0700471926304138,
+      "math_pass@1:8_samples": 0.16249999999999998,
+      "math_pass@1:8_samples_stderr": 0.03502359631520689,
+      "math_pass@1:16_samples": 0.08125,
+      "math_pass@1:16_samples_stderr": 0.01751179815760345,
+      "math_pass@1:32_samples": 0.04062499999999999,
+      "math_pass@1:32_samples_stderr": 0.00875589907880172,
+      "math_pass@1:64_samples": 0.020312499999999966,
+      "math_pass@1:64_samples_stderr": 0.0043779495394008555
+    },
+    "lighteval|aime25|0": {
+      "math_pass@1:1_samples": 0.23333333333333334,
+      "math_pass@1:1_samples_stderr": 0.0785403232453173,
+      "math_pass@1:4_samples": 0.2,
+      "math_pass@1:4_samples_stderr": 0.059209349991676,
+      "math_pass@1:8_samples": 0.2125,
+      "math_pass@1:8_samples_stderr": 0.05846147665662887,
+      "math_pass@1:16_samples": 0.21666666666666667,
+      "math_pass@1:16_samples_stderr": 0.05800915669561485,
+      "math_pass@1:32_samples": 0.215625,
+      "math_pass@1:32_samples_stderr": 0.05986451267548716,
+      "math_pass@1:64_samples": 0.22083333333333333,
+      "math_pass@1:64_samples_stderr": 0.060736310107064095
+    },
+    "lighteval|math_500|0": {
+      "math_pass@1:1_samples": 0.842,
+      "math_pass@1:1_samples_stderr": 0.01632804980457984,
+      "math_pass@1:4_samples": 0.8245,
+      "math_pass@1:4_samples_stderr": 0.0138032808100916
+    },
+    "all": {
+      "math_pass@1:1_samples": 0.45844444444444443,
+      "math_pass@1:1_samples_stderr": 0.05998822246319114,
+      "math_pass@1:4_samples": 0.4498333333333333,
+      "math_pass@1:4_samples_stderr": 0.04768660781072714,
+      "math_pass@1:8_samples": 0.1875,
+      "math_pass@1:8_samples_stderr": 0.04674253648591788,
+      "math_pass@1:16_samples": 0.14895833333333333,
+      "math_pass@1:16_samples_stderr": 0.03776047742660915,
+      "math_pass@1:32_samples": 0.128125,
+      "math_pass@1:32_samples_stderr": 0.03431020587714444,
+      "math_pass@1:64_samples": 0.12057291666666664,
+      "math_pass@1:64_samples_stderr": 0.03255712982323247
+    }
+  },
+  "versions": {
+    "lighteval|aime24|0": 2,
+    "lighteval|aime25|0": 2,
+    "lighteval|math_500|0": 2
+  },
+  "config_tasks": {
+    "lighteval|aime24": {
+      "name": "aime24",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "HuggingFaceH4/aime_2024",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|aime25": {
+      "name": "aime25",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "yentinglin/aime_2025",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 10000,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|math_500": {
+      "name": "math_500",
+      "prompt_function": "math_500",
+      "hf_repo": "HuggingFaceH4/MATH-500",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 500,
+      "effective_num_docs": 500,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    }
+  },
+  "summary_tasks": {
+    "lighteval|aime24|0": {
+      "hashes": {
+        "hash_examples": "ddec8fc79d0a014b",
+        "hash_full_prompts": "253167becf0dfed7",
+        "hash_input_tokens": "bf1cc75b5f12dfb8",
+        "hash_cont_tokens": "d5f6b5788930a8ad"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|aime25|0": {
+      "hashes": {
+        "hash_examples": "76561f892edc3343",
+        "hash_full_prompts": "f7f3867a71ee06da",
+        "hash_input_tokens": "a5f0035ccca29c36",
+        "hash_cont_tokens": "b41e7ff5ab04844b"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|math_500|0": {
+      "hashes": {
+        "hash_examples": "adf0cc8311011db2",
+        "hash_full_prompts": "63c902dbdbaf1552",
+        "hash_input_tokens": "2af397a095a31139",
+        "hash_cont_tokens": "8ab4ccbf5e838416"
+      },
+      "truncated": 0,
+      "non_truncated": 500,
+      "padded": 0,
+      "non_padded": 500,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "c89471499d3f2264",
+      "hash_full_prompts": "b85a4de9816630ff",
+      "hash_input_tokens": "4eef6a037dbfe4a0",
+      "hash_cont_tokens": "f8bd14c8603c12aa"
+    },
+    "truncated": 0,
+    "non_truncated": 560,
+    "padded": 0,
+    "non_padded": 560,
+    "num_truncated_few_shots": 0
+  }
+}
