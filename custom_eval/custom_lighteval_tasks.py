@@ -125,31 +125,35 @@ extend_enum(Metrics, "PROLOG_PASS_METRIC", prolog_pass_metric)
 
 
 def prompt_fn(line, task_name: str):
-    concise_instruction = "\n\nProvide only the Prolog rule as your answer, without any explanation or additional text."
+    concise_instruction = "\n\nProvide only the Prolog rule as your answer, without any explanation or additional text.\n"
     return Doc(
         task_name=task_name,
-        query=line["prompt"] + "\n" + line["data"] + concise_instruction,
-        choices=[line["answer"]],
+        query=line["prompt"] + concise_instruction,
+        choices=[line["ground-truth rule"]],
         gold_index=0,
-        original_query=line["data"],
+        original_query=line["validation program"],
     )
 
 
-CUSTOM_TASK = LightevalTaskConfig(
-    name="V-LOL-Benchmark",
-    suite=["custom"],
-    prompt_function=prompt_fn,
-    hf_repo="ahmad21omar/V-LOL-Benchmark",
-    hf_subset="default",
-    hf_filter=lambda line: int(line["difficulty"][11:]) == 1
-    and len(line["prompt"]) < 47000,
-    hf_avail_splits=["train", "test", "test_small", "eval"],
-    evaluation_splits=["test_small"],
-    generation_size=max(K_VALUES),
-    few_shots_split=None,
-    few_shots_select=None,
-    metric=[Metrics.PROLOG_PASS_METRIC],
-    trust_dataset=True,
-)
+TASKS_TABLE = []
+CURRICULUM_TIERS = ["easy", "basic", "medium", "hard"]
 
-TASKS_TABLE = [CUSTOM_TASK]
+for tier in CURRICULUM_TIERS:
+    TASKS_TABLE.append(
+        LightevalTaskConfig(
+            name=f"V-LOL-Benchmark-Tier-{tier}",
+            suite=["custom"],
+            prompt_function=prompt_fn,
+            hf_repo="ahmad21omar/MetaBench",
+            hf_subset="default",
+            hf_filter=lambda line, current_tier=tier: line["curriculum tier"].lower()
+            == current_tier.lower(),
+            hf_avail_splits=["train", "test", "eval"],
+            evaluation_splits=["test"],
+            generation_size=max(K_VALUES),
+            few_shots_split=None,
+            few_shots_select=None,
+            metric=[Metrics.PROLOG_PASS_METRIC],
+            trust_dataset=True,
+        )
+    )
