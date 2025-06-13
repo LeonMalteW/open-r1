@@ -13,17 +13,11 @@ from lighteval.tasks.requests import Doc
 from janus_swi_evaluator import evaluate, EvaluationConfig, default_evaluation_metrics
 
 
-K_VALUES = [1, 32, 64]  # [1, 4, 8, 16, 32, 64]
+K_VALUES = [1, 32, 64]
 
 
 METRIC_DIRECTIONS = {
     "f1": True,
-    "true_positives": True,
-    "false_positives": False,
-    "false_negatives": False,
-    "precision": True,
-    "recall": True,
-    "accuracy": True,
     "matthews_correlation": True,
     "balanced_accuracy": True,
     "rule_scope_similarity": True,
@@ -32,7 +26,6 @@ METRIC_DIRECTIONS = {
     "pred_fact_consistency": True,
     "gt_fact_consistency": True,
     "avg_healing_steps": False,
-    "total_healing_steps": False,
 }
 
 
@@ -43,13 +36,11 @@ def create_prolog_pass_metric(k_values: List[int] = K_VALUES):
         predictions: List[str], formatted_doc: Doc, golds: List[str]
     ) -> Dict[str, float]:
         results = {}
-        all_metrics = []
+        successful_k_metrics_per_pred = []
         is_correct_list = []
 
-        # Evaluate all predictions
         for pred in predictions:
             try:
-                # Try to evaluate the prediction
                 metrics = evaluate(
                     config=EvaluationConfig(
                         PrologTimeout=10,
@@ -62,45 +53,54 @@ def create_prolog_pass_metric(k_values: List[int] = K_VALUES):
                     ground_truth_rules=golds,
                     predicted_rules=[pred],
                 )
-                # If evaluation succeeded, mark as correct and store metrics
                 is_correct_list.append(1)
-                all_metrics.append(metrics)
+
+                successful_k_metrics_per_pred.append(
+                    {
+                        m_name: metrics.get(m_name, 0.0)
+                        for m_name in METRIC_DIRECTIONS.keys()
+                    }
+                )
             except Exception:
-                # If evaluation failed, mark as incorrect and use zeros for metrics
                 is_correct_list.append(0)
-                all_metrics.append({m: 0.0 for m in default_evaluation_metrics})
+                successful_k_metrics_per_pred.append(
+                    {m_name: 0.0 for m_name in METRIC_DIRECTIONS.keys()}
+                )
 
-        # Calculate pass@k for each k value
         for k in k_values:
-            # Consider only the first k predictions
-            k_predictions = is_correct_list[: min(k, len(is_correct_list))]
-            k_metrics = all_metrics[: min(k, len(all_metrics))]
 
-            # Check if any prediction is correct
-            passed = 1 if any(k_predictions) else 0
-            results[f"prolog_pass@1:{k}_samples"] = passed
+            k_predictions_slice = is_correct_list[: min(k, len(is_correct_list))]
+            k_metrics_slice = successful_k_metrics_per_pred[
+                : min(k, len(successful_k_metrics_per_pred))
+            ]
 
-            # Calculate best metric values for this k
-            for metric_name in default_evaluation_metrics:
-                # Get all values for this metric in the k-set
-                values = [m.get(metric_name, 0.0) for m in k_metrics]
+            passed_at_k = 1 if any(k_predictions_slice) else 0
+            results[f"prolog_pass@1:{k}_samples"] = passed_at_k
 
-                # For metrics where higher is better, take max value
-                if METRIC_DIRECTIONS[metric_name]:
-                    best_value = max(values) if values else 0.0
-                # For metrics where lower is better, take min value
+            for metric_name in METRIC_DIRECTIONS.keys():
+                current_k_metric_values = []
+                for i in range(len(k_predictions_slice)):
+                    if k_predictions_slice[i] == 1:
+                        current_k_metric_values.append(
+                            k_metrics_slice[i].get(metric_name, 0.0)
+                        )
+
+                if current_k_metric_values:
+                    if METRIC_DIRECTIONS[metric_name]:
+                        best_value_for_k = max(current_k_metric_values)
+                    else:
+                        best_value_for_k = min(current_k_metric_values)
                 else:
-                    best_value = min(values) if values else 0.0
+                    best_value_for_k = 0.0
 
-                results[f"{metric_name}_pass@1:{k}_samples"] = best_value
+                results[f"{metric_name}_pass@1:{k}_samples"] = best_value_for_k
 
         return results
 
-    # Generate metric names for all k values and all metrics
     metric_names = []
     for k in k_values:
         metric_names.append(f"prolog_pass@1:{k}_samples")
-        for metric_name in default_evaluation_metrics:
+        for metric_name in METRIC_DIRECTIONS.keys():
             metric_names.append(f"{metric_name}_pass@1:{k}_samples")
 
     return SampleLevelMetricGrouping(
@@ -112,7 +112,7 @@ def create_prolog_pass_metric(k_values: List[int] = K_VALUES):
             **{f"prolog_pass@1:{k}_samples": True for k in k_values},
             **{
                 f"{metric_name}_pass@1:{k}_samples": METRIC_DIRECTIONS[metric_name]
-                for metric_name in default_evaluation_metrics
+                for metric_name in METRIC_DIRECTIONS.keys()
                 for k in k_values
             },
         },
@@ -120,7 +120,6 @@ def create_prolog_pass_metric(k_values: List[int] = K_VALUES):
     )
 
 
-# Create and register the metric
 prolog_pass_metric = create_prolog_pass_metric()
 extend_enum(Metrics, "PROLOG_PASS_METRIC", prolog_pass_metric)
 
@@ -146,7 +145,7 @@ CUSTOM_TASK = LightevalTaskConfig(
     and len(line["prompt"]) < 47000,
     hf_avail_splits=["train", "test", "test_small", "eval"],
     evaluation_splits=["test_small"],
-    generation_size=max(K_VALUES),  # Generate enough samples for the largest k
+    generation_size=max(K_VALUES),
     few_shots_split=None,
     few_shots_select=None,
     metric=[Metrics.PROLOG_PASS_METRIC],
