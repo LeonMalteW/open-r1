@@ -1,0 +1,231 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 2602821.979164587,
+    "end_time": 2603155.991868232,
+    "total_evaluation_time_secondes": "334.0127036450431",
+    "model_name": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": null,
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": 32768,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.6,
+      "top_k": null,
+      "min_p": null,
+      "top_p": 0.95,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "custom|V-LOL-Benchmark|0": {
+      "f1": 1.0,
+      "f1_stderr": 0.0,
+      "true_positives": 1.0,
+      "true_positives_stderr": 0.0,
+      "false_positives": 0.0,
+      "false_positives_stderr": 0.0,
+      "false_negatives": 0.0,
+      "false_negatives_stderr": 0.0,
+      "precision": 1.0,
+      "precision_stderr": 0.0,
+      "recall": 1.0,
+      "recall_stderr": 0.0,
+      "accuracy": 1.0,
+      "accuracy_stderr": 0.0,
+      "matthews_correlation": 1.0,
+      "matthews_correlation_stderr": 0.0,
+      "balanced_accuracy": 1.0,
+      "balanced_accuracy_stderr": 0.0,
+      "rule_scope_similarity": 1.0,
+      "rule_scope_similarity_stderr": 0.0,
+      "undergeneralization_penalty": 0.0,
+      "undergeneralization_penalty_stderr": 0.0,
+      "overgeneralization_penalty": 0.0,
+      "overgeneralization_penalty_stderr": 0.0,
+      "pred_fact_consistency": 0.0,
+      "pred_fact_consistency_stderr": 0.0,
+      "gt_fact_consistency": 0.0,
+      "gt_fact_consistency_stderr": 0.0,
+      "avg_healing_steps": 1.263157894736842,
+      "avg_healing_steps_stderr": 0.10379087338771256,
+      "total_healing_steps": 1.263157894736842,
+      "total_healing_steps_stderr": 0.10379087338771256
+    },
+    "all": {
+      "f1": 1.0,
+      "f1_stderr": 0.0,
+      "true_positives": 1.0,
+      "true_positives_stderr": 0.0,
+      "false_positives": 0.0,
+      "false_positives_stderr": 0.0,
+      "false_negatives": 0.0,
+      "false_negatives_stderr": 0.0,
+      "precision": 1.0,
+      "precision_stderr": 0.0,
+      "recall": 1.0,
+      "recall_stderr": 0.0,
+      "accuracy": 1.0,
+      "accuracy_stderr": 0.0,
+      "matthews_correlation": 1.0,
+      "matthews_correlation_stderr": 0.0,
+      "balanced_accuracy": 1.0,
+      "balanced_accuracy_stderr": 0.0,
+      "rule_scope_similarity": 1.0,
+      "rule_scope_similarity_stderr": 0.0,
+      "undergeneralization_penalty": 0.0,
+      "undergeneralization_penalty_stderr": 0.0,
+      "overgeneralization_penalty": 0.0,
+      "overgeneralization_penalty_stderr": 0.0,
+      "pred_fact_consistency": 0.0,
+      "pred_fact_consistency_stderr": 0.0,
+      "gt_fact_consistency": 0.0,
+      "gt_fact_consistency_stderr": 0.0,
+      "avg_healing_steps": 1.263157894736842,
+      "avg_healing_steps_stderr": 0.10379087338771256,
+      "total_healing_steps": 1.263157894736842,
+      "total_healing_steps_stderr": 0.10379087338771256
+    }
+  },
+  "versions": {
+    "custom|V-LOL-Benchmark|0": 0
+  },
+  "config_tasks": {
+    "custom|V-LOL-Benchmark": {
+      "name": "V-LOL-Benchmark",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "ahmad21omar/V-LOL-Benchmark",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": [
+            "f1",
+            "true_positives",
+            "false_positives",
+            "false_negatives",
+            "precision",
+            "recall",
+            "accuracy",
+            "matthews_correlation",
+            "balanced_accuracy",
+            "rule_scope_similarity",
+            "undergeneralization_penalty",
+            "overgeneralization_penalty",
+            "pred_fact_consistency",
+            "gt_fact_consistency",
+            "avg_healing_steps",
+            "total_healing_steps",
+            "invalid"
+          ],
+          "higher_is_better": {
+            "f1": true,
+            "true_positives": true,
+            "false_positives": true,
+            "false_negatives": true,
+            "precision": true,
+            "recall": true,
+            "accuracy": true,
+            "matthews_correlation": true,
+            "balanced_accuracy": true,
+            "rule_scope_similarity": true,
+            "undergeneralization_penalty": true,
+            "overgeneralization_penalty": true,
+            "pred_fact_consistency": true,
+            "gt_fact_consistency": true,
+            "avg_healing_steps": true,
+            "total_healing_steps": true,
+            "invalid": true
+          },
+          "category": "3",
+          "use_case": "6",
+          "sample_level_fn": "prolog_data_preparator",
+          "corpus_level_fn": {
+            "f1": "mean",
+            "true_positives": "mean",
+            "false_positives": "mean",
+            "false_negatives": "mean",
+            "precision": "mean",
+            "recall": "mean",
+            "accuracy": "mean",
+            "matthews_correlation": "mean",
+            "balanced_accuracy": "mean",
+            "rule_scope_similarity": "mean",
+            "undergeneralization_penalty": "mean",
+            "overgeneralization_penalty": "mean",
+            "pred_fact_consistency": "mean",
+            "gt_fact_consistency": "mean",
+            "avg_healing_steps": "mean",
+            "total_healing_steps": "mean",
+            "invalid": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": "<lambda>",
+      "hf_avail_splits": [
+        "train",
+        "test",
+        "test_small",
+        "eval"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test_small"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "custom"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "custom|V-LOL-Benchmark|0": {
+      "hashes": {
+        "hash_examples": "51f6657c8df2d2d5",
+        "hash_full_prompts": "51f6657c8df2d2d5",
+        "hash_input_tokens": "cf6dc27f434ed1d2",
+        "hash_cont_tokens": "88351f3a4a198889"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "20fc2ef34722b973",
+      "hash_full_prompts": "20fc2ef34722b973",
+      "hash_input_tokens": "b1c7d68f0bfe00bc",
+      "hash_cont_tokens": "4ad88593a1a5df00"
+    },
+    "truncated": 0,
+    "non_truncated": 30,
+    "padded": 0,
+    "non_padded": 30,
+    "num_truncated_few_shots": 0
+  }
+}

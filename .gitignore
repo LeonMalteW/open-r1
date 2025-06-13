@@ -171,11 +171,15 @@ cython_debug/
 .pypirc
 
 # Temp folders
-data/
+data_backup/
+data/*
+!data/evals
 wandb/
 logs/
 eval_results/
-results/
+
 
 .vscode/
 .python-version
+
+.idea/
