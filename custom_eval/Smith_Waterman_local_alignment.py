@@ -50,31 +50,39 @@ ALIGNMENT_ACCURACY = SampleLevelMetric(
 
 
 def prompt_fn(line, task_name: str):
+    concise_instruction = "\n\nProvide only the Prolog rule as your answer, without any explanation or additional text.\n"
     return Doc(
         task_name=task_name,
-        query=line["prompt"] + "\n" + line["data"],
-        choices=[line["answer"]],
+        query=line["prompt"] + concise_instruction,
+        choices=[line["ground-truth rule"]],
         gold_index=0,
-        original_query=line["data"],
+        original_query=line["validation program"],
     )
 
 
 extend_enum(Metrics, "ALIGNMENT_ACCURACY", ALIGNMENT_ACCURACY)
 
-CUSTOM_TASK = LightevalTaskConfig(
-    name="Local-Alignment",
-    suite=["custom"],
-    prompt_function=prompt_fn,
-    hf_repo="ahmad21omar/V-LOL-Benchmark",
-    hf_subset="default",
-    hf_filter=lambda line: int(line["difficulty"][11:]) == 1,
-    hf_avail_splits=["train", "test", "test_small", "eval"],
-    evaluation_splits=["test"],
-    generation_size=1,
-    few_shots_split=None,
-    few_shots_select=None,
-    metric=[Metrics.ALIGNMENT_ACCURACY],
-    trust_dataset=True,
-)
+K_VALUES = [1, 32, 64]
 
-TASKS_TABLE = [CUSTOM_TASK]
+TASKS_TABLE = []
+CURRICULUM_TIERS = ["easy", "basic", "medium", "hard"]
+
+for tier in CURRICULUM_TIERS:
+    TASKS_TABLE.append(
+        LightevalTaskConfig(
+            name=f"V-LOL-Benchmark-Local-Alignment-Tier-{tier}",
+            suite=["custom"],
+            prompt_function=prompt_fn,
+            hf_repo="ahmad21omar/MetaBench",
+            hf_subset="default",
+            hf_filter=lambda line, current_tier=tier: line["curriculum tier"].lower()
+            == current_tier.lower(),
+            hf_avail_splits=["train", "test", "eval"],
+            evaluation_splits=["test"],
+            generation_size=max(K_VALUES),
+            few_shots_split=None,
+            few_shots_select=None,
+            metric=[Metrics.PROLOG_PASS_METRIC],
+            trust_dataset=True,
+        )
+    )
