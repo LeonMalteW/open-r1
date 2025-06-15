@@ -1,0 +1,348 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 2638702.375732504,
+    "end_time": 2647306.739715791,
+    "total_evaluation_time_secondes": "8604.36398328701",
+    "model_name": "_work_open-r1_data_DeepSeek-R1-Distill-Qwen-1.5B-GRPO",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": null,
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": 32768,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.6,
+      "top_k": null,
+      "min_p": null,
+      "top_p": 0.95,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "lighteval|aime24|0": {
+      "math_pass@1:1_samples": 0.0,
+      "math_pass@1:1_samples_stderr": 0.0,
+      "math_pass@1:4_samples": 0.0,
+      "math_pass@1:4_samples_stderr": 0.0,
+      "math_pass@1:8_samples": 0.0,
+      "math_pass@1:8_samples_stderr": 0.0,
+      "math_pass@1:16_samples": 0.0,
+      "math_pass@1:16_samples_stderr": 0.0,
+      "math_pass@1:32_samples": 0.0,
+      "math_pass@1:32_samples_stderr": 0.0,
+      "math_pass@1:64_samples": 0.0,
+      "math_pass@1:64_samples_stderr": 0.0
+    },
+    "lighteval|aime25|0": {
+      "math_pass@1:1_samples": 0.0,
+      "math_pass@1:1_samples_stderr": 0.0,
+      "math_pass@1:4_samples": 0.0,
+      "math_pass@1:4_samples_stderr": 0.0,
+      "math_pass@1:8_samples": 0.0,
+      "math_pass@1:8_samples_stderr": 0.0,
+      "math_pass@1:16_samples": 0.0,
+      "math_pass@1:16_samples_stderr": 0.0,
+      "math_pass@1:32_samples": 0.0,
+      "math_pass@1:32_samples_stderr": 0.0,
+      "math_pass@1:64_samples": 0.0005208333333333333,
+      "math_pass@1:64_samples_stderr": 0.0005208333333333331
+    },
+    "lighteval|math_500|0": {
+      "math_pass@1:1_samples": 0.06,
+      "math_pass@1:1_samples_stderr": 0.010631371130019291,
+      "math_pass@1:4_samples": 0.07,
+      "math_pass@1:4_samples_stderr": 0.006464020972604318
+    },
+    "all": {
+      "math_pass@1:1_samples": 0.02,
+      "math_pass@1:1_samples_stderr": 0.003543790376673097,
+      "math_pass@1:4_samples": 0.023333333333333334,
+      "math_pass@1:4_samples_stderr": 0.002154673657534773,
+      "math_pass@1:8_samples": 0.0,
+      "math_pass@1:8_samples_stderr": 0.0,
+      "math_pass@1:16_samples": 0.0,
+      "math_pass@1:16_samples_stderr": 0.0,
+      "math_pass@1:32_samples": 0.0,
+      "math_pass@1:32_samples_stderr": 0.0,
+      "math_pass@1:64_samples": 0.00026041666666666666,
+      "math_pass@1:64_samples_stderr": 0.00026041666666666655
+    }
+  },
+  "versions": {
+    "lighteval|aime24|0": 2,
+    "lighteval|aime25|0": 2,
+    "lighteval|math_500|0": 2
+  },
+  "config_tasks": {
+    "lighteval|aime24": {
+      "name": "aime24",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "HuggingFaceH4/aime_2024",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|aime25": {
+      "name": "aime25",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "yentinglin/aime_2025",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 10000,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|math_500": {
+      "name": "math_500",
+      "prompt_function": "math_500",
+      "hf_repo": "HuggingFaceH4/MATH-500",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 500,
+      "effective_num_docs": 500,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    }
+  },
+  "summary_tasks": {
+    "lighteval|aime24|0": {
+      "hashes": {
+        "hash_examples": "ddec8fc79d0a014b",
+        "hash_full_prompts": "5077233ac2faf434",
+        "hash_input_tokens": "4acea7974ccd9d85",
+        "hash_cont_tokens": "5a75033dd06d0d38"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|aime25|0": {
+      "hashes": {
+        "hash_examples": "76561f892edc3343",
+        "hash_full_prompts": "14f8f249c685c398",
+        "hash_input_tokens": "84e8a789c678ffdd",
+        "hash_cont_tokens": "87ccac4b03986beb"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|math_500|0": {
+      "hashes": {
+        "hash_examples": "adf0cc8311011db2",
+        "hash_full_prompts": "07dc9ec72580c36a",
+        "hash_input_tokens": "f5a780fd0ac9b5a3",
+        "hash_cont_tokens": "7ac77d79b98e8b56"
+      },
+      "truncated": 0,
+      "non_truncated": 500,
+      "padded": 0,
+      "non_padded": 500,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "c89471499d3f2264",
+      "hash_full_prompts": "a39c0e077eb7fab0",
+      "hash_input_tokens": "6304e767e8b4a8a1",
+      "hash_cont_tokens": "1d7454c7d243c5b8"
+    },
+    "truncated": 0,
+    "non_truncated": 560,
+    "padded": 0,
+    "non_padded": 560,
+    "num_truncated_few_shots": 0
+  }
+}
