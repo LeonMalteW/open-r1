@@ -4,9 +4,9 @@
     "num_fewshot_seeds": 1,
     "max_samples": null,
     "job_id": 0,
-    "start_time": 2638702.375732504,
-    "end_time": 2647306.739715791,
-    "total_evaluation_time_secondes": "8604.36398328701",
+    "start_time": 2795776.671198245,
+    "end_time": 2798488.928730159,
+    "total_evaluation_time_secondes": "2712.2575319139287",
     "model_name": "_work_open-r1_data_DeepSeek-R1-Distill-Qwen-1.5B-GRPO",
     "model_sha": "",
     "model_dtype": null,
@@ -31,52 +31,52 @@
   },
   "results": {
     "lighteval|aime24|0": {
-      "math_pass@1:1_samples": 0.0,
-      "math_pass@1:1_samples_stderr": 0.0,
-      "math_pass@1:4_samples": 0.0,
-      "math_pass@1:4_samples_stderr": 0.0,
-      "math_pass@1:8_samples": 0.0,
-      "math_pass@1:8_samples_stderr": 0.0,
-      "math_pass@1:16_samples": 0.0,
-      "math_pass@1:16_samples_stderr": 0.0,
-      "math_pass@1:32_samples": 0.0,
-      "math_pass@1:32_samples_stderr": 0.0,
-      "math_pass@1:64_samples": 0.0,
-      "math_pass@1:64_samples_stderr": 0.0
+      "math_pass@1:1_samples": 0.2,
+      "math_pass@1:1_samples_stderr": 0.07427813527082075,
+      "math_pass@1:4_samples": 0.13333333333333333,
+      "math_pass@1:4_samples_stderr": 0.044420491629746206,
+      "math_pass@1:8_samples": 0.06666666666666667,
+      "math_pass@1:8_samples_stderr": 0.0222102458148731,
+      "math_pass@1:16_samples": 0.03333333333333333,
+      "math_pass@1:16_samples_stderr": 0.011105122907436552,
+      "math_pass@1:32_samples": 0.016666666666666666,
+      "math_pass@1:32_samples_stderr": 0.005552561453718276,
+      "math_pass@1:64_samples": 0.008333333333333326,
+      "math_pass@1:64_samples_stderr": 0.0027762807268591344
     },
     "lighteval|aime25|0": {
-      "math_pass@1:1_samples": 0.0,
-      "math_pass@1:1_samples_stderr": 0.0,
-      "math_pass@1:4_samples": 0.0,
-      "math_pass@1:4_samples_stderr": 0.0,
-      "math_pass@1:8_samples": 0.0,
-      "math_pass@1:8_samples_stderr": 0.0,
-      "math_pass@1:16_samples": 0.0,
-      "math_pass@1:16_samples_stderr": 0.0,
-      "math_pass@1:32_samples": 0.0,
-      "math_pass@1:32_samples_stderr": 0.0,
-      "math_pass@1:64_samples": 0.0005208333333333333,
-      "math_pass@1:64_samples_stderr": 0.0005208333333333331
+      "math_pass@1:1_samples": 0.13333333333333333,
+      "math_pass@1:1_samples_stderr": 0.06312427686319992,
+      "math_pass@1:4_samples": 0.14166666666666666,
+      "math_pass@1:4_samples_stderr": 0.05040544427202816,
+      "math_pass@1:8_samples": 0.14166666666666666,
+      "math_pass@1:8_samples_stderr": 0.04632055558531008,
+      "math_pass@1:16_samples": 0.15625,
+      "math_pass@1:16_samples_stderr": 0.047072142907786066,
+      "math_pass@1:32_samples": 0.14791666666666664,
+      "math_pass@1:32_samples_stderr": 0.04477286761342745,
+      "math_pass@1:64_samples": 0.15312500000000007,
+      "math_pass@1:64_samples_stderr": 0.046153450404009914
     },
     "lighteval|math_500|0": {
-      "math_pass@1:1_samples": 0.06,
-      "math_pass@1:1_samples_stderr": 0.010631371130019291,
-      "math_pass@1:4_samples": 0.07,
-      "math_pass@1:4_samples_stderr": 0.006464020972604318
+      "math_pass@1:1_samples": 0.732,
+      "math_pass@1:1_samples_stderr": 0.019827714859587574,
+      "math_pass@1:4_samples": 0.7285,
+      "math_pass@1:4_samples_stderr": 0.015598465445308926
     },
     "all": {
-      "math_pass@1:1_samples": 0.02,
-      "math_pass@1:1_samples_stderr": 0.003543790376673097,
-      "math_pass@1:4_samples": 0.023333333333333334,
-      "math_pass@1:4_samples_stderr": 0.002154673657534773,
-      "math_pass@1:8_samples": 0.0,
-      "math_pass@1:8_samples_stderr": 0.0,
-      "math_pass@1:16_samples": 0.0,
-      "math_pass@1:16_samples_stderr": 0.0,
-      "math_pass@1:32_samples": 0.0,
-      "math_pass@1:32_samples_stderr": 0.0,
-      "math_pass@1:64_samples": 0.00026041666666666666,
-      "math_pass@1:64_samples_stderr": 0.00026041666666666655
+      "math_pass@1:1_samples": 0.3551111111111111,
+      "math_pass@1:1_samples_stderr": 0.05241004233120274,
+      "math_pass@1:4_samples": 0.3345,
+      "math_pass@1:4_samples_stderr": 0.03680813378236109,
+      "math_pass@1:8_samples": 0.10416666666666666,
+      "math_pass@1:8_samples_stderr": 0.03426540070009159,
+      "math_pass@1:16_samples": 0.09479166666666666,
+      "math_pass@1:16_samples_stderr": 0.02908863290761131,
+      "math_pass@1:32_samples": 0.08229166666666665,
+      "math_pass@1:32_samples_stderr": 0.025162714533572862,
+      "math_pass@1:64_samples": 0.0807291666666667,
+      "math_pass@1:64_samples_stderr": 0.024464865565434524
     }
   },
   "versions": {
@@ -292,9 +292,9 @@
     "lighteval|aime24|0": {
       "hashes": {
         "hash_examples": "ddec8fc79d0a014b",
-        "hash_full_prompts": "5077233ac2faf434",
-        "hash_input_tokens": "4acea7974ccd9d85",
-        "hash_cont_tokens": "5a75033dd06d0d38"
+        "hash_full_prompts": "f9804bfb1e04507e",
+        "hash_input_tokens": "8b15eef98987a8d9",
+        "hash_cont_tokens": "3ec42dcac064af17"
       },
       "truncated": 0,
       "non_truncated": 30,
@@ -306,9 +306,9 @@
     "lighteval|aime25|0": {
       "hashes": {
         "hash_examples": "76561f892edc3343",
-        "hash_full_prompts": "14f8f249c685c398",
-        "hash_input_tokens": "84e8a789c678ffdd",
-        "hash_cont_tokens": "87ccac4b03986beb"
+        "hash_full_prompts": "09b388e6f32549a2",
+        "hash_input_tokens": "aefee0d3aa583c4f",
+        "hash_cont_tokens": "7bbae7f7ffe5cb51"
       },
       "truncated": 0,
       "non_truncated": 30,
@@ -320,9 +320,9 @@
     "lighteval|math_500|0": {
       "hashes": {
         "hash_examples": "adf0cc8311011db2",
-        "hash_full_prompts": "07dc9ec72580c36a",
-        "hash_input_tokens": "f5a780fd0ac9b5a3",
-        "hash_cont_tokens": "7ac77d79b98e8b56"
+        "hash_full_prompts": "abc7b1cc014dd095",
+        "hash_input_tokens": "d1880ebea92f04b4",
+        "hash_cont_tokens": "8a3f513e96424d2c"
       },
       "truncated": 0,
       "non_truncated": 500,
@@ -335,9 +335,9 @@
   "summary_general": {
     "hashes": {
       "hash_examples": "c89471499d3f2264",
-      "hash_full_prompts": "a39c0e077eb7fab0",
-      "hash_input_tokens": "6304e767e8b4a8a1",
-      "hash_cont_tokens": "1d7454c7d243c5b8"
+      "hash_full_prompts": "eda44abf0cca41ec",
+      "hash_input_tokens": "79aeed7196c38a1b",
+      "hash_cont_tokens": "925e289cade5f4b8"
     },
     "truncated": 0,
     "non_truncated": 560,
