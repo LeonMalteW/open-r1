@@ -1,0 +1,515 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 2886012.476698547,
+    "end_time": 2886247.391740859,
+    "total_evaluation_time_secondes": "234.91504231188446",
+    "model_name": "agentica-org/DeepCoder-1.5B-Preview",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": null,
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": 163,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.6,
+      "top_k": null,
+      "min_p": null,
+      "top_p": 0.95,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "custom|V-LOL-Benchmark-Tier-basic|0": {
+      "prolog_pass@1:1_samples": 0.288,
+      "prolog_pass@1:1_samples_stderr": 0.02869700458739822,
+      "f1_pass@1:1_samples": 0.288,
+      "f1_pass@1:1_samples_stderr": 0.02869700458739822,
+      "matthews_correlation_pass@1:1_samples": 0.288,
+      "matthews_correlation_pass@1:1_samples_stderr": 0.02869700458739822,
+      "balanced_accuracy_pass@1:1_samples": 0.288,
+      "balanced_accuracy_pass@1:1_samples_stderr": 0.02869700458739822,
+      "rule_scope_similarity_pass@1:1_samples": 0.288,
+      "rule_scope_similarity_pass@1:1_samples_stderr": 0.02869700458739822,
+      "undergeneralization_penalty_pass@1:1_samples": 0.0,
+      "undergeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "pred_fact_consistency_pass@1:1_samples": 0.0,
+      "pred_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "gt_fact_consistency_pass@1:1_samples": 0.0,
+      "gt_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "avg_healing_steps_pass@1:1_samples": 0.54,
+      "avg_healing_steps_pass@1:1_samples_stderr": 0.054969871265884776
+    },
+    "custom|V-LOL-Benchmark-Tier-easy|0": {
+      "prolog_pass@1:1_samples": 0.176,
+      "prolog_pass@1:1_samples_stderr": 0.024133497525457105,
+      "f1_pass@1:1_samples": 0.176,
+      "f1_pass@1:1_samples_stderr": 0.024133497525457105,
+      "matthews_correlation_pass@1:1_samples": 0.176,
+      "matthews_correlation_pass@1:1_samples_stderr": 0.024133497525457105,
+      "balanced_accuracy_pass@1:1_samples": 0.176,
+      "balanced_accuracy_pass@1:1_samples_stderr": 0.024133497525457105,
+      "rule_scope_similarity_pass@1:1_samples": 0.176,
+      "rule_scope_similarity_pass@1:1_samples_stderr": 0.024133497525457105,
+      "undergeneralization_penalty_pass@1:1_samples": 0.0,
+      "undergeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "pred_fact_consistency_pass@1:1_samples": 0.0,
+      "pred_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "gt_fact_consistency_pass@1:1_samples": 0.0,
+      "gt_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "avg_healing_steps_pass@1:1_samples": 0.324,
+      "avg_healing_steps_pass@1:1_samples_stderr": 0.045479330227166256
+    },
+    "custom|V-LOL-Benchmark-Tier-hard|0": {
+      "prolog_pass@1:1_samples": 0.428,
+      "prolog_pass@1:1_samples_stderr": 0.03135596892377261,
+      "f1_pass@1:1_samples": 0.428,
+      "f1_pass@1:1_samples_stderr": 0.03135596892377261,
+      "matthews_correlation_pass@1:1_samples": 0.428,
+      "matthews_correlation_pass@1:1_samples_stderr": 0.03135596892377261,
+      "balanced_accuracy_pass@1:1_samples": 0.428,
+      "balanced_accuracy_pass@1:1_samples_stderr": 0.03135596892377261,
+      "rule_scope_similarity_pass@1:1_samples": 0.428,
+      "rule_scope_similarity_pass@1:1_samples_stderr": 0.03135596892377261,
+      "undergeneralization_penalty_pass@1:1_samples": 0.0,
+      "undergeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "pred_fact_consistency_pass@1:1_samples": 0.0,
+      "pred_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "gt_fact_consistency_pass@1:1_samples": 0.0,
+      "gt_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "avg_healing_steps_pass@1:1_samples": 0.72,
+      "avg_healing_steps_pass@1:1_samples_stderr": 0.056169565427563094
+    },
+    "custom|V-LOL-Benchmark-Tier-medium|0": {
+      "prolog_pass@1:1_samples": 0.32,
+      "prolog_pass@1:1_samples_stderr": 0.029561724955241037,
+      "f1_pass@1:1_samples": 0.32,
+      "f1_pass@1:1_samples_stderr": 0.029561724955241037,
+      "matthews_correlation_pass@1:1_samples": 0.32,
+      "matthews_correlation_pass@1:1_samples_stderr": 0.029561724955241037,
+      "balanced_accuracy_pass@1:1_samples": 0.32,
+      "balanced_accuracy_pass@1:1_samples_stderr": 0.029561724955241037,
+      "rule_scope_similarity_pass@1:1_samples": 0.32,
+      "rule_scope_similarity_pass@1:1_samples_stderr": 0.029561724955241037,
+      "undergeneralization_penalty_pass@1:1_samples": 0.0,
+      "undergeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "pred_fact_consistency_pass@1:1_samples": 0.0,
+      "pred_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "gt_fact_consistency_pass@1:1_samples": 0.0,
+      "gt_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "avg_healing_steps_pass@1:1_samples": 0.564,
+      "avg_healing_steps_pass@1:1_samples_stderr": 0.05429001402182497
+    },
+    "all": {
+      "prolog_pass@1:1_samples": 0.303,
+      "prolog_pass@1:1_samples_stderr": 0.028437048997967243,
+      "f1_pass@1:1_samples": 0.303,
+      "f1_pass@1:1_samples_stderr": 0.028437048997967243,
+      "matthews_correlation_pass@1:1_samples": 0.303,
+      "matthews_correlation_pass@1:1_samples_stderr": 0.028437048997967243,
+      "balanced_accuracy_pass@1:1_samples": 0.303,
+      "balanced_accuracy_pass@1:1_samples_stderr": 0.028437048997967243,
+      "rule_scope_similarity_pass@1:1_samples": 0.303,
+      "rule_scope_similarity_pass@1:1_samples_stderr": 0.028437048997967243,
+      "undergeneralization_penalty_pass@1:1_samples": 0.0,
+      "undergeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples": 0.0,
+      "overgeneralization_penalty_pass@1:1_samples_stderr": 0.0,
+      "pred_fact_consistency_pass@1:1_samples": 0.0,
+      "pred_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "gt_fact_consistency_pass@1:1_samples": 0.0,
+      "gt_fact_consistency_pass@1:1_samples_stderr": 0.0,
+      "avg_healing_steps_pass@1:1_samples": 0.537,
+      "avg_healing_steps_pass@1:1_samples_stderr": 0.05272719523560977
+    }
+  },
+  "versions": {
+    "custom|V-LOL-Benchmark-Tier-basic|0": 0,
+    "custom|V-LOL-Benchmark-Tier-easy|0": 0,
+    "custom|V-LOL-Benchmark-Tier-hard|0": 0,
+    "custom|V-LOL-Benchmark-Tier-medium|0": 0
+  },
+  "config_tasks": {
+    "custom|V-LOL-Benchmark-Tier-basic": {
+      "name": "V-LOL-Benchmark-Tier-basic",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "ahmad21omar/MetaBench",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": [
+            "prolog_pass@1:1_samples",
+            "f1_pass@1:1_samples",
+            "matthews_correlation_pass@1:1_samples",
+            "balanced_accuracy_pass@1:1_samples",
+            "rule_scope_similarity_pass@1:1_samples",
+            "undergeneralization_penalty_pass@1:1_samples",
+            "overgeneralization_penalty_pass@1:1_samples",
+            "pred_fact_consistency_pass@1:1_samples",
+            "gt_fact_consistency_pass@1:1_samples",
+            "avg_healing_steps_pass@1:1_samples"
+          ],
+          "higher_is_better": {
+            "prolog_pass@1:1_samples": true,
+            "f1_pass@1:1_samples": true,
+            "matthews_correlation_pass@1:1_samples": true,
+            "balanced_accuracy_pass@1:1_samples": true,
+            "rule_scope_similarity_pass@1:1_samples": true,
+            "undergeneralization_penalty_pass@1:1_samples": false,
+            "overgeneralization_penalty_pass@1:1_samples": false,
+            "pred_fact_consistency_pass@1:1_samples": true,
+            "gt_fact_consistency_pass@1:1_samples": true,
+            "avg_healing_steps_pass@1:1_samples": false
+          },
+          "category": "3",
+          "use_case": "6",
+          "sample_level_fn": "prolog_data_preparator",
+          "corpus_level_fn": {
+            "prolog_pass@1:1_samples": "mean",
+            "f1_pass@1:1_samples": "mean",
+            "matthews_correlation_pass@1:1_samples": "mean",
+            "balanced_accuracy_pass@1:1_samples": "mean",
+            "rule_scope_similarity_pass@1:1_samples": "mean",
+            "undergeneralization_penalty_pass@1:1_samples": "mean",
+            "overgeneralization_penalty_pass@1:1_samples": "mean",
+            "pred_fact_consistency_pass@1:1_samples": "mean",
+            "gt_fact_consistency_pass@1:1_samples": "mean",
+            "avg_healing_steps_pass@1:1_samples": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": "<lambda>",
+      "hf_avail_splits": [
+        "train",
+        "test",
+        "eval"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "custom"
+      ],
+      "original_num_docs": 250,
+      "effective_num_docs": 250,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-easy": {
+      "name": "V-LOL-Benchmark-Tier-easy",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "ahmad21omar/MetaBench",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": [
+            "prolog_pass@1:1_samples",
+            "f1_pass@1:1_samples",
+            "matthews_correlation_pass@1:1_samples",
+            "balanced_accuracy_pass@1:1_samples",
+            "rule_scope_similarity_pass@1:1_samples",
+            "undergeneralization_penalty_pass@1:1_samples",
+            "overgeneralization_penalty_pass@1:1_samples",
+            "pred_fact_consistency_pass@1:1_samples",
+            "gt_fact_consistency_pass@1:1_samples",
+            "avg_healing_steps_pass@1:1_samples"
+          ],
+          "higher_is_better": {
+            "prolog_pass@1:1_samples": true,
+            "f1_pass@1:1_samples": true,
+            "matthews_correlation_pass@1:1_samples": true,
+            "balanced_accuracy_pass@1:1_samples": true,
+            "rule_scope_similarity_pass@1:1_samples": true,
+            "undergeneralization_penalty_pass@1:1_samples": false,
+            "overgeneralization_penalty_pass@1:1_samples": false,
+            "pred_fact_consistency_pass@1:1_samples": true,
+            "gt_fact_consistency_pass@1:1_samples": true,
+            "avg_healing_steps_pass@1:1_samples": false
+          },
+          "category": "3",
+          "use_case": "6",
+          "sample_level_fn": "prolog_data_preparator",
+          "corpus_level_fn": {
+            "prolog_pass@1:1_samples": "mean",
+            "f1_pass@1:1_samples": "mean",
+            "matthews_correlation_pass@1:1_samples": "mean",
+            "balanced_accuracy_pass@1:1_samples": "mean",
+            "rule_scope_similarity_pass@1:1_samples": "mean",
+            "undergeneralization_penalty_pass@1:1_samples": "mean",
+            "overgeneralization_penalty_pass@1:1_samples": "mean",
+            "pred_fact_consistency_pass@1:1_samples": "mean",
+            "gt_fact_consistency_pass@1:1_samples": "mean",
+            "avg_healing_steps_pass@1:1_samples": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": "<lambda>",
+      "hf_avail_splits": [
+        "train",
+        "test",
+        "eval"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "custom"
+      ],
+      "original_num_docs": 250,
+      "effective_num_docs": 250,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-hard": {
+      "name": "V-LOL-Benchmark-Tier-hard",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "ahmad21omar/MetaBench",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": [
+            "prolog_pass@1:1_samples",
+            "f1_pass@1:1_samples",
+            "matthews_correlation_pass@1:1_samples",
+            "balanced_accuracy_pass@1:1_samples",
+            "rule_scope_similarity_pass@1:1_samples",
+            "undergeneralization_penalty_pass@1:1_samples",
+            "overgeneralization_penalty_pass@1:1_samples",
+            "pred_fact_consistency_pass@1:1_samples",
+            "gt_fact_consistency_pass@1:1_samples",
+            "avg_healing_steps_pass@1:1_samples"
+          ],
+          "higher_is_better": {
+            "prolog_pass@1:1_samples": true,
+            "f1_pass@1:1_samples": true,
+            "matthews_correlation_pass@1:1_samples": true,
+            "balanced_accuracy_pass@1:1_samples": true,
+            "rule_scope_similarity_pass@1:1_samples": true,
+            "undergeneralization_penalty_pass@1:1_samples": false,
+            "overgeneralization_penalty_pass@1:1_samples": false,
+            "pred_fact_consistency_pass@1:1_samples": true,
+            "gt_fact_consistency_pass@1:1_samples": true,
+            "avg_healing_steps_pass@1:1_samples": false
+          },
+          "category": "3",
+          "use_case": "6",
+          "sample_level_fn": "prolog_data_preparator",
+          "corpus_level_fn": {
+            "prolog_pass@1:1_samples": "mean",
+            "f1_pass@1:1_samples": "mean",
+            "matthews_correlation_pass@1:1_samples": "mean",
+            "balanced_accuracy_pass@1:1_samples": "mean",
+            "rule_scope_similarity_pass@1:1_samples": "mean",
+            "undergeneralization_penalty_pass@1:1_samples": "mean",
+            "overgeneralization_penalty_pass@1:1_samples": "mean",
+            "pred_fact_consistency_pass@1:1_samples": "mean",
+            "gt_fact_consistency_pass@1:1_samples": "mean",
+            "avg_healing_steps_pass@1:1_samples": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": "<lambda>",
+      "hf_avail_splits": [
+        "train",
+        "test",
+        "eval"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "custom"
+      ],
+      "original_num_docs": 250,
+      "effective_num_docs": 250,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-medium": {
+      "name": "V-LOL-Benchmark-Tier-medium",
+      "prompt_function": "prompt_fn",
+      "hf_repo": "ahmad21omar/MetaBench",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": [
+            "prolog_pass@1:1_samples",
+            "f1_pass@1:1_samples",
+            "matthews_correlation_pass@1:1_samples",
+            "balanced_accuracy_pass@1:1_samples",
+            "rule_scope_similarity_pass@1:1_samples",
+            "undergeneralization_penalty_pass@1:1_samples",
+            "overgeneralization_penalty_pass@1:1_samples",
+            "pred_fact_consistency_pass@1:1_samples",
+            "gt_fact_consistency_pass@1:1_samples",
+            "avg_healing_steps_pass@1:1_samples"
+          ],
+          "higher_is_better": {
+            "prolog_pass@1:1_samples": true,
+            "f1_pass@1:1_samples": true,
+            "matthews_correlation_pass@1:1_samples": true,
+            "balanced_accuracy_pass@1:1_samples": true,
+            "rule_scope_similarity_pass@1:1_samples": true,
+            "undergeneralization_penalty_pass@1:1_samples": false,
+            "overgeneralization_penalty_pass@1:1_samples": false,
+            "pred_fact_consistency_pass@1:1_samples": true,
+            "gt_fact_consistency_pass@1:1_samples": true,
+            "avg_healing_steps_pass@1:1_samples": false
+          },
+          "category": "3",
+          "use_case": "6",
+          "sample_level_fn": "prolog_data_preparator",
+          "corpus_level_fn": {
+            "prolog_pass@1:1_samples": "mean",
+            "f1_pass@1:1_samples": "mean",
+            "matthews_correlation_pass@1:1_samples": "mean",
+            "balanced_accuracy_pass@1:1_samples": "mean",
+            "rule_scope_similarity_pass@1:1_samples": "mean",
+            "undergeneralization_penalty_pass@1:1_samples": "mean",
+            "overgeneralization_penalty_pass@1:1_samples": "mean",
+            "pred_fact_consistency_pass@1:1_samples": "mean",
+            "gt_fact_consistency_pass@1:1_samples": "mean",
+            "avg_healing_steps_pass@1:1_samples": "mean"
+          }
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": "<lambda>",
+      "hf_avail_splits": [
+        "train",
+        "test",
+        "eval"
+      ],
+      "trust_dataset": true,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 1,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "custom"
+      ],
+      "original_num_docs": 250,
+      "effective_num_docs": 250,
+      "must_remove_duplicate_docs": false,
+      "version": 0
+    }
+  },
+  "summary_tasks": {
+    "custom|V-LOL-Benchmark-Tier-basic|0": {
+      "hashes": {
+        "hash_examples": "78a27ffeee31786d",
+        "hash_full_prompts": "78a27ffeee31786d",
+        "hash_input_tokens": "82dfcebad432f9d9",
+        "hash_cont_tokens": "01a4555b8edf61ad"
+      },
+      "truncated": 0,
+      "non_truncated": 250,
+      "padded": 0,
+      "non_padded": 250,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-easy|0": {
+      "hashes": {
+        "hash_examples": "ec8fe990665b2af9",
+        "hash_full_prompts": "ec8fe990665b2af9",
+        "hash_input_tokens": "955508e0215935c2",
+        "hash_cont_tokens": "0cfed0152c36d0f5"
+      },
+      "truncated": 0,
+      "non_truncated": 250,
+      "padded": 0,
+      "non_padded": 250,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-hard|0": {
+      "hashes": {
+        "hash_examples": "6ea7701932ca9bf9",
+        "hash_full_prompts": "6ea7701932ca9bf9",
+        "hash_input_tokens": "fcfd273682960e95",
+        "hash_cont_tokens": "6f992ccc32e5f501"
+      },
+      "truncated": 0,
+      "non_truncated": 250,
+      "padded": 0,
+      "non_padded": 250,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "custom|V-LOL-Benchmark-Tier-medium|0": {
+      "hashes": {
+        "hash_examples": "a30e1956064c28d7",
+        "hash_full_prompts": "a30e1956064c28d7",
+        "hash_input_tokens": "e60cdd144ba0be55",
+        "hash_cont_tokens": "d97c79e1fcb7ddd6"
+      },
+      "truncated": 0,
+      "non_truncated": 250,
+      "padded": 0,
+      "non_padded": 250,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "a49f8e8b2a0c8f3e",
+      "hash_full_prompts": "a49f8e8b2a0c8f3e",
+      "hash_input_tokens": "2f30db2fc8afd3bf",
+      "hash_cont_tokens": "fde9a709e1453a65"
+    },
+    "truncated": 0,
+    "non_truncated": 1000,
+    "padded": 0,
+    "non_padded": 1000,
+    "num_truncated_few_shots": 0
+  }
+}

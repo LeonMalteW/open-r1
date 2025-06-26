@@ -1,0 +1,348 @@
+{
+  "config_general": {
+    "lighteval_sha": "?",
+    "num_fewshot_seeds": 1,
+    "max_samples": null,
+    "job_id": 0,
+    "start_time": 3058603.12557076,
+    "end_time": 3058996.978157098,
+    "total_evaluation_time_secondes": "393.85258633783087",
+    "model_name": "agentica-org/DeepCoder-1.5B-Preview",
+    "model_sha": "",
+    "model_dtype": null,
+    "model_size": null,
+    "generation_parameters": {
+      "early_stopping": null,
+      "repetition_penalty": null,
+      "frequency_penalty": null,
+      "length_penalty": null,
+      "presence_penalty": null,
+      "max_new_tokens": 1000,
+      "min_new_tokens": null,
+      "seed": null,
+      "stop_tokens": null,
+      "temperature": 0.6,
+      "top_k": null,
+      "min_p": null,
+      "top_p": 0.95,
+      "truncate_prompt": null,
+      "response_format": null
+    }
+  },
+  "results": {
+    "lighteval|aime24|0": {
+      "math_pass@1:1_samples": 0.0,
+      "math_pass@1:1_samples_stderr": 0.0,
+      "math_pass@1:4_samples": 0.008333333333333333,
+      "math_pass@1:4_samples_stderr": 0.008333333333333331,
+      "math_pass@1:8_samples": 0.004166666666666667,
+      "math_pass@1:8_samples_stderr": 0.004166666666666666,
+      "math_pass@1:16_samples": 0.0020833333333333333,
+      "math_pass@1:16_samples_stderr": 0.002083333333333333,
+      "math_pass@1:32_samples": 0.0010416666666666667,
+      "math_pass@1:32_samples_stderr": 0.0010416666666666664,
+      "math_pass@1:64_samples": 0.0005208333333333333,
+      "math_pass@1:64_samples_stderr": 0.0005208333333333332
+    },
+    "lighteval|aime25|0": {
+      "math_pass@1:1_samples": 0.03333333333333333,
+      "math_pass@1:1_samples_stderr": 0.03333333333333332,
+      "math_pass@1:4_samples": 0.025,
+      "math_pass@1:4_samples_stderr": 0.024999999999999998,
+      "math_pass@1:8_samples": 0.02083333333333333,
+      "math_pass@1:8_samples_stderr": 0.020833333333333332,
+      "math_pass@1:16_samples": 0.01875,
+      "math_pass@1:16_samples_stderr": 0.018750000000000003,
+      "math_pass@1:32_samples": 0.017708333333333333,
+      "math_pass@1:32_samples_stderr": 0.01666329886950839,
+      "math_pass@1:64_samples": 0.016666666666666677,
+      "math_pass@1:64_samples_stderr": 0.016136271269377177
+    },
+    "lighteval|math_500|0": {
+      "math_pass@1:1_samples": 0.4,
+      "math_pass@1:1_samples_stderr": 0.021930844120728505,
+      "math_pass@1:4_samples": 0.373,
+      "math_pass@1:4_samples_stderr": 0.018149402238178684
+    },
+    "all": {
+      "math_pass@1:1_samples": 0.14444444444444446,
+      "math_pass@1:1_samples_stderr": 0.018421392484687275,
+      "math_pass@1:4_samples": 0.13544444444444445,
+      "math_pass@1:4_samples_stderr": 0.01716091185717067,
+      "math_pass@1:8_samples": 0.012499999999999997,
+      "math_pass@1:8_samples_stderr": 0.012499999999999999,
+      "math_pass@1:16_samples": 0.010416666666666666,
+      "math_pass@1:16_samples_stderr": 0.010416666666666668,
+      "math_pass@1:32_samples": 0.009375,
+      "math_pass@1:32_samples_stderr": 0.008852482768087528,
+      "math_pass@1:64_samples": 0.008593750000000006,
+      "math_pass@1:64_samples_stderr": 0.008328552301355256
+    }
+  },
+  "versions": {
+    "lighteval|aime24|0": 2,
+    "lighteval|aime25|0": 2,
+    "lighteval|math_500|0": 2
+  },
+  "config_tasks": {
+    "lighteval|aime24": {
+      "name": "aime24",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "HuggingFaceH4/aime_2024",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|aime25": {
+      "name": "aime25",
+      "prompt_function": "aime_prompt_fn",
+      "hf_repo": "yentinglin/aime_2025",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:8_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:16_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:32_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:64_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "train"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "train"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 10000,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 30,
+      "effective_num_docs": 30,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    },
+    "lighteval|math_500": {
+      "name": "math_500",
+      "prompt_function": "math_500",
+      "hf_repo": "HuggingFaceH4/MATH-500",
+      "hf_subset": "default",
+      "metric": [
+        {
+          "metric_name": "math_pass@1:1_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        },
+        {
+          "metric_name": "math_pass@1:4_samples",
+          "higher_is_better": true,
+          "category": "5",
+          "use_case": "6",
+          "sample_level_fn": "compute",
+          "corpus_level_fn": "mean"
+        }
+      ],
+      "hf_revision": null,
+      "hf_filter": null,
+      "hf_avail_splits": [
+        "test"
+      ],
+      "trust_dataset": false,
+      "evaluation_splits": [
+        "test"
+      ],
+      "few_shots_split": null,
+      "few_shots_select": null,
+      "generation_size": 32768,
+      "generation_grammar": null,
+      "stop_sequence": [],
+      "num_samples": null,
+      "suite": [
+        "lighteval"
+      ],
+      "original_num_docs": 500,
+      "effective_num_docs": 500,
+      "must_remove_duplicate_docs": false,
+      "version": 2
+    }
+  },
+  "summary_tasks": {
+    "lighteval|aime24|0": {
+      "hashes": {
+        "hash_examples": "ddec8fc79d0a014b",
+        "hash_full_prompts": "f9804bfb1e04507e",
+        "hash_input_tokens": "8b15eef98987a8d9",
+        "hash_cont_tokens": "082cc6062ebd8789"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|aime25|0": {
+      "hashes": {
+        "hash_examples": "76561f892edc3343",
+        "hash_full_prompts": "09b388e6f32549a2",
+        "hash_input_tokens": "aefee0d3aa583c4f",
+        "hash_cont_tokens": "7ad02e0ad0da1b3f"
+      },
+      "truncated": 0,
+      "non_truncated": 30,
+      "padded": 0,
+      "non_padded": 30,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    },
+    "lighteval|math_500|0": {
+      "hashes": {
+        "hash_examples": "adf0cc8311011db2",
+        "hash_full_prompts": "abc7b1cc014dd095",
+        "hash_input_tokens": "d1880ebea92f04b4",
+        "hash_cont_tokens": "f69a16d04bcfdb62"
+      },
+      "truncated": 0,
+      "non_truncated": 500,
+      "padded": 0,
+      "non_padded": 500,
+      "effective_few_shots": 0.0,
+      "num_truncated_few_shots": 0
+    }
+  },
+  "summary_general": {
+    "hashes": {
+      "hash_examples": "c89471499d3f2264",
+      "hash_full_prompts": "eda44abf0cca41ec",
+      "hash_input_tokens": "79aeed7196c38a1b",
+      "hash_cont_tokens": "da4d6b9e1eb16446"
+    },
+    "truncated": 0,
+    "non_truncated": 560,
+    "padded": 0,
+    "non_padded": 560,
+    "num_truncated_few_shots": 0
+  }
+}

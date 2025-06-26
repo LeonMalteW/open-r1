@@ -20,7 +20,7 @@ import json
 import math
 import re
 from functools import partial, update_wrapper
-from typing import Callable, Dict, Literal, Optional
+from typing import Callable, Dict, Literal, Optional, List
 
 from latex2sympy2_extended import NormalizationConfig
 from math_verify import LatexExtractionConfig, parse, verify
@@ -32,9 +32,34 @@ from .utils.competitive_programming import (
     get_morph_client_from_env,
     get_piston_client_from_env,
 )
+from evaluate import load
+
 from .utils.competitive_programming import patch_code as cf_patch_code
 from .utils.competitive_programming import score_submission as cf_score_submission
 from .utils.competitive_programming import score_subtask
+
+symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
+
+def extract_rule(completion: List[Dict]) -> str:
+    """Extract Prolog rule from completion"""
+    # Last assistant message contains the rule
+    if completion and completion[-1]["role"] == "assistant":
+        return completion[-1]["content"]
+    return ""
+
+def symbolic_reward(completions, **kwargs):
+    """Compute symbolic judge rewards"""
+    predictions = [extract_rule(c) for c in completions]
+    references = [{
+        "validation_program": kwargs["validation_program"][i],
+        "evaluation_config": kwargs["evaluation_config"][i]
+    } for i in range(len(predictions))]
+
+    results = symbolic_judge.compute(
+        predictions=predictions,
+        references=references
+    )
+    return [r["is_correct"] for r in results["detailed_results"]]
 
 
 def accuracy_reward(completions: list[list[dict[str, str]]], solution: list[str], **kwargs) -> list[Optional[float]]:
@@ -645,6 +670,7 @@ def get_soft_overlong_punishment(max_completion_len, soft_punish_cache):
 
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
+        "symbolic_judge": symbolic_reward,
         "accuracy": accuracy_reward,
         "format": format_reward,
         "reasoning_steps": reasoning_steps_reward,
