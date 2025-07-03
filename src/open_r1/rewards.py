@@ -41,24 +41,32 @@ symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
 
 
 def symbolic_reward(completions, **kwargs):
-    """Compute symbolic judge rewards"""
+    """Compute symbolic judge rewards with 3 metrics per prediction."""
+
     predictions = [completion[0]["content"] for completion in completions]
-    references = [
-        {
-            "validation_program": gold,
-            "evaluation_config": {
-                "positive_predicate": "eastbound",
-                "negative_predicate": "westbound",
-            },
-        }
-        for gold in kwargs["validation program"]
+
+    references = [{
+        "validation_program": kwargs["validation program"],
+        "evaluation_config": {
+            "positive_predicate": "eastbound",
+            "negative_predicate": "westbound",
+        },
+    }] * len(predictions)
+
+    results = symbolic_judge.compute(predictions=predictions, references=references)
+
+    detailed = results["detailed_results"]
+
+    rewards = [
+        [
+            1.0 if d["is_correct"] else 0.0,     # accuracy
+            d["partial_score"],                 # partial score
+            1.0 if d["syntax_valid"] else 0.0   # syntax score
+        ]
+        for d in detailed
     ]
 
-    results = symbolic_judge.compute(
-        predictions=predictions,
-        references=references
-    )
-    return [results["accuracy"]] * len(completions)
+    return rewards  # Shape: [num_completions, 3]
 
 
 def accuracy_reward(completions: list[list[dict[str, str]]], solution: list[str], **kwargs) -> list[Optional[float]]:
