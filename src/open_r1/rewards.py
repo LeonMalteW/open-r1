@@ -20,8 +20,9 @@ import json
 import math
 import re
 from functools import partial, update_wrapper
-from typing import Callable, Dict, Literal, Optional, List
+from typing import Callable, Dict, Literal, Optional
 
+from evaluate import load
 from latex2sympy2_extended import NormalizationConfig
 from math_verify import LatexExtractionConfig, parse, verify
 
@@ -32,7 +33,6 @@ from .utils.competitive_programming import (
     get_morph_client_from_env,
     get_piston_client_from_env,
 )
-from evaluate import load
 from .utils.competitive_programming import patch_code as cf_patch_code
 from .utils.competitive_programming import score_submission as cf_score_submission
 from .utils.competitive_programming import score_subtask
@@ -40,36 +40,80 @@ from .utils.competitive_programming import score_subtask
 symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
 
 
+def extract_answer_block(text):
+    """Extracts content inside the <answer>...</answer> block."""
+    match = re.search(r"<answer>\s*(.*?)\s*</answer>", text, re.DOTALL)
+    return match.group(1).strip() if match else text
+
+
 def symbolic_reward(completions, **kwargs):
     """Compute symbolic judge rewards with 3 metrics per prediction."""
 
-    predictions = [completion[0]["content"] for completion in completions]
+    predictions = [
+        extract_answer_block(completion[0]["content"]) for completion in completions
+    ]
 
-    references = [{
-        "validation_program": kwargs["validation program"],
-        "evaluation_config": {
-            "positive_predicate": "eastbound",
-            "negative_predicate": "westbound",
-        },
-    }] * len(predictions)
+    val_programs = kwargs["validation program"]
+    assert len(predictions) == len(val_programs)
 
-    results = symbolic_judge.compute(predictions=predictions, references=references)
+    references = [
+        {
+            "validation_program": val_programs[0],
+            "evaluation_config": {
+                "positive_predicate": "eastbound",
+                "negative_predicate": "westbound",
+            },
+        }
+    ] * len(predictions)
+
+    return symbolic_judge.compute(predictions=predictions, references=references)
+
+
+def symbolic_reward_accuracy(completions, **kwargs):
+    """Compute symbolic judge rewards with 3 metrics per prediction."""
+
+    results = symbolic_reward(completions, **kwargs)
 
     detailed = results["detailed_results"]
 
-    rewards = [
-        [
-            1.0 if d["is_correct"] else 0.0,     # accuracy
-            d["partial_score"],                 # partial score
-            1.0 if d["syntax_valid"] else 0.0   # syntax score
-        ]
-        for d in detailed
-    ]
-
-    return rewards  # Shape: [num_completions, 3]
+    return [1.0 if r.get("is_correct") else 0.0 for r in detailed]
 
 
-def accuracy_reward(completions: list[list[dict[str, str]]], solution: list[str], **kwargs) -> list[Optional[float]]:
+def symbolic_reward_partial_score(completions, **kwargs):
+    """Compute symbolic judge rewards with 3 metrics per prediction."""
+
+    results = symbolic_reward(completions, **kwargs)
+
+    detailed = results["detailed_results"]
+
+    raw_scores = [r.get("partial_score", 0.0) for r in detailed]
+
+    if all(s == raw_scores[0] for s in raw_scores):
+        return [1.0 if s > 0 else 0.0 for s in raw_scores]
+
+    min_score = min(raw_scores)
+    max_score = max(raw_scores)
+
+    normalized = [(s - min_score) / (max_score - min_score) for s in raw_scores]
+
+    boosted = [x**2 for x in normalized]
+
+    return boosted
+
+
+def symbolic_reward_syntax_score(completions, **kwargs):
+    """Compute symbolic judge rewards with 3 metrics per prediction."""
+
+    results = symbolic_reward(completions, **kwargs)
+
+    detailed = results["detailed_results"]
+
+    return [1.0 if r.get("syntax_valid") else 0.0 for r in detailed]
+
+
+def accuracy_reward(
+    completions: list[list[dict[str, str]]], solution: list[str], **kwargs
+) -> list[Optional[float]]:
     """Reward function that checks if the completion is the same as the ground truth."""
     contents = [completion[0]["content"] for completion in completions]
     rewards = []
@@ -103,7 +147,9 @@ def accuracy_reward(completions: list[list[dict[str, str]]], solution: list[str]
             try:
                 reward = float(verify(gold_parsed, answer_parsed))
             except Exception as e:
-                print(f"verify failed: {e}, answer: {answer_parsed}, gold: {gold_parsed}")
+                print(
+                    f"verify failed: {e}, answer: {answer_parsed}, gold: {gold_parsed}"
+                )
                 reward = None
         else:
             # If the gold solution is not parseable, we assign `None` to skip this example
@@ -118,7 +164,10 @@ def format_reward(completions, **kwargs):
     """Reward function that checks if the reasoning process is enclosed within <think> and </think> tags, while the final answer is enclosed within <answer> and </answer> tags."""
     pattern = r"^<think>\n.*?\n</think>\n<answer>\n.*?\n</answer>$"
     completion_contents = [completion[0]["content"] for completion in completions]
-    matches = [re.match(pattern, content, re.DOTALL | re.MULTILINE) for content in completion_contents]
+    matches = [
+        re.match(pattern, content, re.DOTALL | re.MULTILINE)
+        for content in completion_contents
+    ]
     return [1.0 if match else 0.0 for match in matches]
 
 
@@ -161,7 +210,9 @@ def reasoning_steps_reward(completions, **kwargs):
     return [min(1.0, count / 3) for count in matches]
 
 
-def len_reward(completions: list[Dict[str, str]], solution: list[str], **kwargs) -> float:
+def len_reward(
+    completions: list[Dict[str, str]], solution: list[str], **kwargs
+) -> float:
     """Compute length-based rewards to discourage overthinking and promote token efficiency.
 
     Taken from the Kimi 1.5 tech report: https://huggingface.co/papers/2501.12599
@@ -314,7 +365,9 @@ def get_cosine_scaled_reward(
     return cosine_scaled_reward
 
 
-def get_repetition_penalty_reward(ngram_size: int, max_penalty: float, language: str = "en"):
+def get_repetition_penalty_reward(
+    ngram_size: int, max_penalty: float, language: str = "en"
+):
     """
     Computes N-gram repetition penalty as described in Appendix C.2 of https://huggingface.co/papers/2502.03373.
     Reference implementation from: https://github.com/eddycmu/demystify-long-cot/blob/release/openrlhf/openrlhf/reward/repetition.py
@@ -396,7 +449,9 @@ def _init_event_loop():
     return loop
 
 
-def ioi_code_reward(completions, test_batch_size: int = 1, provider_type: str = "piston", **kwargs) -> list[float]:
+def ioi_code_reward(
+    completions, test_batch_size: int = 1, provider_type: str = "piston", **kwargs
+) -> list[float]:
     """Reward function that evaluates IOI problems using a specified execution client.
 
     Assumes the dataset has the same format as hf.co/datasets/open-r1/ioi
@@ -428,7 +483,9 @@ def ioi_code_reward(completions, test_batch_size: int = 1, provider_type: str = 
             print(f"Error from {provider_type} worker: {e}")
             return SubtaskResult()
 
-    problems_data = [dict(zip(kwargs.keys(), values)) for values in zip(*kwargs.values())]
+    problems_data = [
+        dict(zip(kwargs.keys(), values)) for values in zip(*kwargs.values())
+    ]
 
     loop = _init_event_loop()
     evals = [
@@ -465,12 +522,16 @@ def cf_code_reward(
     # for info on setting up piston workers, see slurm/piston/README.md
     piston_client = get_piston_client_from_env()
 
-    languages = kwargs["language"] if "language" in kwargs else [None] * len(completions)
+    languages = (
+        kwargs["language"] if "language" in kwargs else [None] * len(completions)
+    )
     code_snippets = [
         # note: grading is automatically skipped if a problem has no tests
-        cf_patch_code(extract_code(completion[-1]["content"], language), language)
-        if patch_code
-        else extract_code(completion[-1]["content"], language)
+        (
+            cf_patch_code(extract_code(completion[-1]["content"], language), language)
+            if patch_code
+            else extract_code(completion[-1]["content"], language)
+        )
         for completion, language in zip(completions, languages)
     ]
 
@@ -482,7 +543,9 @@ def cf_code_reward(
             return None
 
     # load problem data. undo separating kwargs by column
-    problems_data = [dict(zip(kwargs.keys(), values)) for values in zip(*kwargs.values())]
+    problems_data = [
+        dict(zip(kwargs.keys(), values)) for values in zip(*kwargs.values())
+    ]
 
     loop = _init_event_loop()
     evals = [
@@ -598,13 +661,17 @@ def code_reward(
     evaluate_code(code_snippet, test_cases)
     """
 
-    code_snippets = [extract_code(completion[-1]["content"]) for completion in completions]
+    code_snippets = [
+        extract_code(completion[-1]["content"]) for completion in completions
+    ]
     verification_info = kwargs["verification_info"]
 
     template = evaluation_script_template
 
     scripts = [
-        template.format(code=json.dumps(code), test_cases=json.dumps(json.dumps(info["test_cases"])))
+        template.format(
+            code=json.dumps(code), test_cases=json.dumps(json.dumps(info["test_cases"]))
+        )
         for code, info in zip(code_snippets, verification_info)
     ]
 
@@ -613,7 +680,9 @@ def code_reward(
     if enforce_same_language:
         all_same_language = all(v["language"] == language for v in verification_info)
         if not all_same_language:
-            raise ValueError("All verification_info must have the same language", verification_info)
+            raise ValueError(
+                "All verification_info must have the same language", verification_info
+            )
 
     execution_provider = get_provider(
         provider_type=provider_type,
@@ -633,7 +702,11 @@ def get_code_format_reward(language: str = "python"):
 
     def code_format_reward(completions, **kwargs):
         # if there is a language field, use it instead of the default language. This way we can have mixed language training.
-        languages = kwargs["language"] if "language" in kwargs else [language] * len(completions)
+        languages = (
+            kwargs["language"]
+            if "language" in kwargs
+            else [language] * len(completions)
+        )
 
         completion_contents = [completion[0]["content"] for completion in completions]
         matches = [
@@ -659,15 +732,24 @@ def get_soft_overlong_punishment(max_completion_len, soft_punish_cache):
         soft_punish_cache: Minimum length of the completion. If set to 0, no minimum length is applied.
     """
 
-    def soft_overlong_punishment_reward(completion_ids: list[list[int]], **kwargs) -> list[float]:
+    def soft_overlong_punishment_reward(
+        completion_ids: list[list[int]], **kwargs
+    ) -> list[float]:
         """Reward function that penalizes overlong completions."""
         rewards = []
         for ids in completion_ids:
             completion_length = len(ids)
             if completion_length <= max_completion_len - soft_punish_cache:
                 rewards.append(0.0)
-            elif max_completion_len - soft_punish_cache < completion_length <= max_completion_len:
-                rewards.append((max_completion_len - soft_punish_cache - completion_length) / soft_punish_cache)
+            elif (
+                max_completion_len - soft_punish_cache
+                < completion_length
+                <= max_completion_len
+            ):
+                rewards.append(
+                    (max_completion_len - soft_punish_cache - completion_length)
+                    / soft_punish_cache
+                )
             else:
                 rewards.append(-1.0)
         return rewards
@@ -677,7 +759,9 @@ def get_soft_overlong_punishment(max_completion_len, soft_punish_cache):
 
 def get_reward_funcs(script_args) -> list[Callable]:
     REWARD_FUNCS_REGISTRY = {
-        "symbolic_judge": symbolic_reward,
+        "symbolic_reward_accuracy": symbolic_reward_accuracy,
+        "symbolic_reward_partial_score": symbolic_reward_partial_score,
+        "symbolic_reward_syntax_score": symbolic_reward_syntax_score,
         "accuracy": accuracy_reward,
         "format": format_reward,
         "reasoning_steps": reasoning_steps_reward,
@@ -698,7 +782,9 @@ def get_reward_funcs(script_args) -> list[Callable]:
                 code_reward,
                 num_parallel=script_args.parallel_code_exec_per_proc,
                 provider_type=script_args.code_provider,
-                enforce_same_language=getattr(script_args, "enforce_same_language", False),
+                enforce_same_language=getattr(
+                    script_args, "enforce_same_language", False
+                ),
             ),
             code_reward,
         ),
@@ -707,7 +793,9 @@ def get_reward_funcs(script_args) -> list[Callable]:
                 binary_code_reward,
                 num_parallel=script_args.parallel_code_exec_per_proc,
                 provider_type=script_args.code_provider,
-                enforce_same_language=getattr(script_args, "enforce_same_language", False),
+                enforce_same_language=getattr(
+                    script_args, "enforce_same_language", False
+                ),
             ),
             binary_code_reward,
         ),
