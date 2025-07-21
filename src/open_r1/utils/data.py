@@ -20,7 +20,13 @@ def get_dataset(args: ScriptArguments) -> DatasetDict:
     """
     if args.dataset_name and not args.dataset_mixture:
         logger.info(f"Loading dataset: {args.dataset_name}")
-        return datasets.load_dataset(args.dataset_name, args.dataset_config)
+        ds = datasets.load_dataset(args.dataset_name, args.dataset_config)
+        if args.dataset_filter is not None:
+                custom_filter_func = eval(args.dataset_filter, {"__builtins__": None}, {})
+                if not callable(custom_filter_func):
+                    raise TypeError("Custom dataset filter must be a callable (e.g., a lambda function).")
+                ds = ds.filter(custom_filter_func)
+        return ds
     elif args.dataset_mixture:
         logger.info(f"Creating dataset mixture with {len(args.dataset_mixture.datasets)} datasets")
         seed = args.dataset_mixture.seed
@@ -33,6 +39,12 @@ def get_dataset(args: ScriptArguments) -> DatasetDict:
                 dataset_config.config,
                 split=dataset_config.split,
             )
+            if args.dataset_filter is not None:
+                custom_filter_func = eval(args.dataset_filter, {"__builtins__": None}, {})
+                if not callable(custom_filter_func):
+                    raise TypeError("Custom dataset filter must be a callable (e.g., a lambda function).")
+                ds = ds.filter(custom_filter_func)
+
             if dataset_config.columns is not None:
                 ds = ds.select_columns(dataset_config.columns)
             if dataset_config.weight is not None:

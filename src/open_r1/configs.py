@@ -70,6 +70,19 @@ class ScriptArguments(trl.ScriptArguments):
     dataset_name: Optional[str] = field(
         default=None, metadata={"help": "Dataset name. Can be omitted if using dataset_mixture."}
     )
+
+    dataset_prompt_filter: Optional[str] = field(
+        default=None,
+        metadata={
+            "help": (
+                "Optional Python code string for custom dataset filtering. "
+                "This should be a lambda function that takes 'example' as input "
+                "and returns True to keep the example, False to discard it. "
+                "E.g., 'lambda example: len(example[\"text\"]) > 1000'"
+            )
+        },
+    )
+
     dataset_mixture: Optional[dict[str, Any]] = field(
         default=None,
         metadata={"help": "Configuration for creating dataset mixtures with advanced options like shuffling."},
