@@ -21,8 +21,8 @@ def get_dataset(args: ScriptArguments) -> DatasetDict:
     if args.dataset_name and not args.dataset_mixture:
         logger.info(f"Loading dataset: {args.dataset_name}")
         ds = datasets.load_dataset(args.dataset_name, args.dataset_config)
-        if args.dataset_filter is not None:
-                custom_filter_func = eval(args.dataset_filter, {"__builtins__": None}, {})
+        if args.dataset_prompt_filter is not None:
+                custom_filter_func = eval(args.dataset_prompt_filter, {"__builtins__": None}, {})
                 if not callable(custom_filter_func):
                     raise TypeError("Custom dataset filter must be a callable (e.g., a lambda function).")
                 ds = ds.filter(custom_filter_func)
@@ -39,8 +39,8 @@ def get_dataset(args: ScriptArguments) -> DatasetDict:
                 dataset_config.config,
                 split=dataset_config.split,
             )
-            if args.dataset_filter is not None:
-                custom_filter_func = eval(args.dataset_filter, {"__builtins__": None}, {})
+            if args.dataset_prompt_filter is not None:
+                custom_filter_func = eval(args.dataset_prompt_filter, {"__builtins__": None}, {})
                 if not callable(custom_filter_func):
                     raise TypeError("Custom dataset filter must be a callable (e.g., a lambda function).")
                 ds = ds.filter(custom_filter_func)
