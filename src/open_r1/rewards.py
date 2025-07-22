@@ -43,7 +43,7 @@ symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
 def extract_answer_block(text):
     """Extracts content inside the <answer>...</answer> block."""
     match = re.search(r"<answer>\s*(.*?)\s*</answer>", text, re.DOTALL)
-    return match.group(1).strip() if match else text
+    return match.group(1).strip() if match else ""
 
 
 def symbolic_reward(completions, **kwargs):
