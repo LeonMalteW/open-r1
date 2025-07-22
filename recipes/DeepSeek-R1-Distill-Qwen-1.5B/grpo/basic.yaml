@@ -51,9 +51,9 @@ reward_funcs:
 - format
 - tag_count
 reward_weights:
-- 1.0  # accuracy (from symbolic_judge)
-- 0.25  # partial_score (from symbolic_judge)
-- 1.0  # syntax_score (from symbolic_judge)
+- 0.70  # accuracy (from symbolic_judge)
+- 0.20  # partial_score (from symbolic_judge)
+- 0.10  # syntax_score (from symbolic_judge)
 - 1  # format
 - 1  # tag_count
 save_strategy: "epoch"
