@@ -1,5 +1,5 @@
 # Model arguments
-model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+model_name_or_path: data/DeepSeek-R1-Distill-Qwen-1.5B-GRPO
 model_revision: main
 torch_dtype: bfloat16
 attn_implementation: flash_attention_2
@@ -21,7 +21,7 @@ gradient_accumulation_steps: 16
 gradient_checkpointing: true
 gradient_checkpointing_kwargs:
   use_reentrant: false
-hub_model_id: DeepSeek-R1-Distill-Qwen-1.5B-Basic
+hub_model_id: DeepSeek-R1-Distill-Qwen-1.5B-GRPO-Basic
 hub_strategy: every_save
 learning_rate: 1.0e-06
 log_completions: true
@@ -37,7 +37,7 @@ max_completion_length: 2048
 max_steps: -1
 num_generations: 16
 num_train_epochs: 20
-output_dir: data/DeepSeek-R1-Distill-Qwen-1.5B-Basic
+output_dir: data/DeepSeek-R1-Distill-Qwen-1.5B-GRPO-Basic
 overwrite_output_dir: false
 per_device_eval_batch_size: 16
 per_device_train_batch_size: 16
