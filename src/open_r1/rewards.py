@@ -23,6 +23,7 @@ from functools import partial, update_wrapper
 from typing import Callable, Dict, Literal, Optional
 
 from evaluate import load
+from datasets import DownloadConfig
 from latex2sympy2_extended import NormalizationConfig
 from math_verify import LatexExtractionConfig, parse, verify
 
@@ -37,7 +38,7 @@ from .utils.competitive_programming import patch_code as cf_patch_code
 from .utils.competitive_programming import score_submission as cf_score_submission
 from .utils.competitive_programming import score_subtask
 
-symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning")
+symbolic_judge = load("AIML-TUDA/VerifiableRewardsForScalableLogicalReasoning",download_config=DownloadConfig(force_download=True))
 
 
 def extract_answer_block(text):
