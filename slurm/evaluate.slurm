@@ -51,6 +51,7 @@ ACCELERATE_USE_DEEPSPEED=false
 echo "Running lighteval script ..."
 echo "Eval results will be saved to $OUTPUT_DIR"
 lighteval vllm "$MODEL_ARGS" $TASKS \
+    --custom_tasks scripts/evaluation/extended_lighteval_tasks/slr_bench.py \
     --use-chat-template \
     --output-dir $OUTPUT_DIR \
     --save-details \

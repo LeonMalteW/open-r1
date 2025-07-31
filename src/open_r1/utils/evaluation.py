@@ -56,12 +56,11 @@ register_lighteval_task(LIGHTEVAL_TASKS, "lighteval", "aime25", "aime25", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "lighteval", "gpqa", "gpqa:diamond", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "extended", "lcb", "lcb:codegeneration", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "extended", "lcb_v4", "lcb:codegeneration_v4", 0)
-register_lighteval_task(LIGHTEVAL_TASKS, "extended", "slr-bench", "SLR-Bench:resolution", 0)
 
 
-CUSTOM_EVALUATION_TASKS = {
-    # "my_custom_benchmark": "/path/to/your/script.py",
-}
+
+CUSTOM_EVALUATION_TASKS = {}
+register_lighteval_task(CUSTOM_EVALUATION_TASKS, "extended", "slr-bench", "SLR-Bench:resolution", 0)
 
 
 def get_lighteval_tasks():
