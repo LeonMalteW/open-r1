@@ -48,7 +48,6 @@ def register_lighteval_task(
     task_list = ",".join(f"{eval_suite}|{task}|{num_fewshot}|0" for task in task_list.split(","))
     configs[task_name] = task_list
 
-
 LIGHTEVAL_TASKS = {}
 
 register_lighteval_task(LIGHTEVAL_TASKS, "lighteval", "math_500", "math_500", 0)
@@ -57,13 +56,23 @@ register_lighteval_task(LIGHTEVAL_TASKS, "lighteval", "aime25", "aime25", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "lighteval", "gpqa", "gpqa:diamond", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "extended", "lcb", "lcb:codegeneration", 0)
 register_lighteval_task(LIGHTEVAL_TASKS, "extended", "lcb_v4", "lcb:codegeneration_v4", 0)
+register_lighteval_task(LIGHTEVAL_TASKS, "extended", "slr-bench", "SLR-Bench:resolution", 0)
+
+
+CUSTOM_EVALUATION_TASKS = {
+    # "my_custom_benchmark": "/path/to/your/script.py",
+}
 
 
 def get_lighteval_tasks():
     return list(LIGHTEVAL_TASKS.keys())
 
 
-SUPPORTED_BENCHMARKS = get_lighteval_tasks()
+def get_custom_tasks():
+    return list(CUSTOM_EVALUATION_TASKS.keys())
+
+
+SUPPORTED_BENCHMARKS = get_lighteval_tasks() + get_custom_tasks()
 
 
 def run_lighteval_job(
@@ -103,6 +112,32 @@ def run_lighteval_job(
     subprocess.run(cmd, check=True)
 
 
+def run_custom_evaluation_job(
+    benchmark: str,
+    training_args: Union["SFTConfig", "GRPOConfig"],
+    model_args: "ModelConfig",
+) -> None:
+    script_path = CUSTOM_EVALUATION_TASKS[benchmark]
+    model_name = training_args.hub_model_id
+    model_revision = training_args.hub_model_revision
+    num_gpus = get_gpu_count_for_vllm(model_name, model_revision)
+
+    cmd = VLLM_SLURM_PREFIX.copy()
+    cmd_args = [
+        f"--gres=gpu:{num_gpus}",
+        f"--job-name=or1_custom_{benchmark}_{model_name.split('/')[-1]}_{model_revision}",
+        script_path,
+        model_name,
+        model_revision,
+        f"{model_args.trust_remote_code}",
+    ]
+    if training_args.system_prompt is not None:
+        prompt_encoded = base64.b64encode(training_args.system_prompt.encode()).decode()
+        cmd_args.append(prompt_encoded)
+    cmd[-1] += " " + " ".join(cmd_args)
+    subprocess.run(cmd, check=True)
+
+
 def run_benchmark_jobs(training_args: Union["SFTConfig", "GRPOConfig"], model_args: "ModelConfig") -> None:
     benchmarks = training_args.benchmarks
     if len(benchmarks) == 1 and benchmarks[0] == "all":
@@ -114,5 +149,7 @@ def run_benchmark_jobs(training_args: Union["SFTConfig", "GRPOConfig"], model_ar
         print(f"Launching benchmark `{benchmark}`")
         if benchmark in get_lighteval_tasks():
             run_lighteval_job(benchmark, training_args, model_args)
+        elif benchmark in get_custom_tasks():
+            run_custom_evaluation_job(benchmark, training_args, model_args)
         else:
             raise ValueError(f"Unknown benchmark {benchmark}")
